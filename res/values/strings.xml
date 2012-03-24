@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Numbers Calicurater</string>
+    <string name="name_ButtonNumbers3">Calicurate Numbers 3</string>
+    <string name="name_ButtonNumbers4">Calicurate Numbers 4</string>
+</resources>

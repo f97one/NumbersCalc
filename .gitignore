@@ -1,6 +1,8 @@
 # built application files
 *.apk
 *.ap_
+*.jar
+*.so
 
 # files for the dex VM
 *.dex
@@ -19,3 +21,4 @@ local.properties
 # Eclipse project files
 .classpath
 .project
+bin/jarlist.cache

@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package jp.ddo.formula97.numbers;
+package net.formula97.android.NumbersCalc;
 
 public final class R {
     public static final class attr {

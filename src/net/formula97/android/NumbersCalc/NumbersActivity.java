@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.google.ads.*;
 
 /**
  * @author kazutoshi
@@ -16,6 +17,9 @@ public class NumbersActivity extends Activity implements View.OnClickListener {
 	TextView textViewNumbers;
 	Button buttonNumbers3;
 	Button buttonNumbers4;
+
+	AdView adView;
+	private static final String MY_AD_UNIT_ID = "a150e97716f2ebe";
 
     /** Called when the activity is first created. */
     @Override
@@ -31,6 +35,8 @@ public class NumbersActivity extends Activity implements View.OnClickListener {
         // それぞれのボタンにコールバックリスナーを定義
         buttonNumbers3.setOnClickListener(this);
         buttonNumbers4.setOnClickListener(this);
+
+        adView = (AdView)findViewById(R.id.adView);
     }
 
     /**
@@ -82,6 +88,8 @@ public class NumbersActivity extends Activity implements View.OnClickListener {
 	protected void onPause() {
 		// TODO AdMobを停止する処理を書く
 		super.onPause();
+
+		adView.stopLoading();
 	}
 
 	/**
@@ -92,6 +100,15 @@ public class NumbersActivity extends Activity implements View.OnClickListener {
 		// TODO AdMobを置く処理を追加する
 		super.onResume();
 
+		textViewNumbers.setText("");
 
+		adView.loadAd(new AdRequest());
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO 自動生成されたメソッド・スタブ
+		super.onDestroy();
+		adView.destroy();
 	}
 }

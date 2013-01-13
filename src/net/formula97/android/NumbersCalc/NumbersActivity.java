@@ -2,16 +2,18 @@ package net.formula97.android.NumbersCalc;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.google.ads.*;
+import com.google.ads.AdRequest.ErrorCode;
 
 /**
  * @author kazutoshi
  *
  */
-public class NumbersActivity extends Activity implements View.OnClickListener {
+public class NumbersActivity extends Activity implements View.OnClickListener, AdListener {
 
 	// ウィジェット類の宣言
 	TextView textViewNumbers;
@@ -19,9 +21,11 @@ public class NumbersActivity extends Activity implements View.OnClickListener {
 	Button buttonNumbers4;
 
 	AdView adView;
-	private static final String MY_AD_UNIT_ID = "a150e97716f2ebe";
+	// private static final String MY_AD_UNIT_ID = "a150e97716f2ebe";
 
-    /** Called when the activity is first created. */
+    /** Called when the activity is first created.
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,9 @@ public class NumbersActivity extends Activity implements View.OnClickListener {
         buttonNumbers3.setOnClickListener(this);
         buttonNumbers4.setOnClickListener(this);
 
+        // AdMob表示用のウィジェットを取得し、コールバックリスナーを定義
         adView = (AdView)findViewById(R.id.adView);
+        adView.setAdListener(this);
     }
 
     /**
@@ -64,7 +70,8 @@ public class NumbersActivity extends Activity implements View.OnClickListener {
     /**
      * ボタンを押した時の処理を定義する。
      * @param v View型、押されたボタンのView
-     */
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 
@@ -83,6 +90,7 @@ public class NumbersActivity extends Activity implements View.OnClickListener {
 
 	/**
 	 * Activityが一時停止状態に入った時の処理を書く。
+	 * @see android.app.Activity#onPause()
 	 */
 	@Override
 	protected void onPause() {
@@ -94,6 +102,7 @@ public class NumbersActivity extends Activity implements View.OnClickListener {
 
 	/**
 	 * Activityが復帰した時の処理を書く。
+	 * @see android.app.Activity#onResume()
 	 */
 	@Override
 	protected void onResume() {
@@ -105,10 +114,62 @@ public class NumbersActivity extends Activity implements View.OnClickListener {
 		adView.loadAd(new AdRequest());
 	}
 
+	/* (非 Javadoc)
+	 * @see android.app.Activity#onDestroy()
+	 */
 	@Override
 	protected void onDestroy() {
 		// TODO 自動生成されたメソッド・スタブ
 		super.onDestroy();
-		adView.destroy();
+
+		if (adView.isReady()) {
+			adView.destroy();
+		}
+	}
+
+	/* (非 Javadoc)
+	 * @see com.google.ads.AdListener#onDismissScreen(com.google.ads.Ad)
+	 */
+	@Override
+	public void onDismissScreen(Ad arg0) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	/* (非 Javadoc)
+	 * @see com.google.ads.AdListener#onFailedToReceiveAd(com.google.ads.Ad, com.google.ads.AdRequest.ErrorCode)
+	 */
+	@Override
+	public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
+		Log.w("onFailedToReceiveAd", "AdMob failed to receive, Error code = " + arg1);
+
+	// TODO AdMobのビューをレイアウトから削除する処理を書く
+	}
+
+	/* (非 Javadoc)
+	 * @see com.google.ads.AdListener#onLeaveApplication(com.google.ads.Ad)
+	 */
+	@Override
+	public void onLeaveApplication(Ad arg0) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	/* (非 Javadoc)
+	 * @see com.google.ads.AdListener#onPresentScreen(com.google.ads.Ad)
+	 */
+	@Override
+	public void onPresentScreen(Ad arg0) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	/* (非 Javadoc)
+	 * @see com.google.ads.AdListener#onReceiveAd(com.google.ads.Ad)
+	 */
+	@Override
+	public void onReceiveAd(Ad arg0) {
+		// TODO 自動生成されたメソッド・スタブ
+		Log.d("onReceivedAd", "AdMob received succeesfuly.");
 	}
 }

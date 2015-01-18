@@ -17,7 +17,6 @@
         <activity
             android:name=".NumbersActivity"
             android:label="@string/app_name"
-            android:icon="@drawable/icon"
             android:theme="@style/AppBaseTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

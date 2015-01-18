@@ -3,5 +3,8 @@
     <string name="app_name">Numbers Calculator</string>
     <string name="name_ButtonNumbers3">Calculate Numbers 3</string>
     <string name="name_ButtonNumbers4">Calculate Numbers 4</string>
-    <string name="ad_unit_id">ca-app-pub-4987945318994685/5836297656</string>
+    <string name="ad_unit_id" translatable="false">ca-app-pub-4987945318994685/5836297656</string>
+    <string name="winning_number_info">Winning number info.</string>
+    <string name="numbers_3">Numbers 3</string>
+    <string name="numbers_4">Numbers 4</string>
 </resources>

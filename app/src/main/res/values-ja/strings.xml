@@ -3,5 +3,7 @@
     <string name="app_name">ナンバーズ計算機</string>
     <string name="name_ButtonNumbers3">ナンバーズ3を計算</string>
     <string name="name_ButtonNumbers4">ナンバーズ4を計算</string>
-    
+    <string name="numbers_3">ナンバーズ3</string>
+    <string name="numbers_4">ナンバーズ4</string>
+    <string name="winning_number_info">当選番号案内</string>
 </resources>

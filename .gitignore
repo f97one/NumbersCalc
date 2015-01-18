@@ -29,3 +29,6 @@ proguard/
 
 .idea/
 *.iml
+
+# Windows-related resources
+[Tt]humbs.db

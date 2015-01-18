@@ -16,9 +16,7 @@
         android:layout_marginBottom="48dip"
         android:layout_marginTop="48dip"
         android:text="9999"
-        android:textSize="96sp" >
-
-    </TextView>
+        android:textSize="96sp" />
 
     <Button
         android:id="@+id/ButtonNumbers3"
@@ -28,8 +26,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:textAppearance="?android:textAppearanceLarge"
-        android:text="@string/name_ButtonNumbers3" >
-    </Button>
+        android:text="@string/name_ButtonNumbers3" />
 
     <Button
         android:id="@+id/ButtonNumbers4"
@@ -39,8 +36,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:textAppearance="?android:textAppearanceLarge"
-        android:text="@string/name_ButtonNumbers4" >
-    </Button>
+        android:text="@string/name_ButtonNumbers4"/>
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"

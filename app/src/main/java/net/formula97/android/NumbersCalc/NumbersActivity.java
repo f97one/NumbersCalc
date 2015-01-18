@@ -1,7 +1,7 @@
 package net.formula97.android.NumbersCalc;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,7 +15,7 @@ import java.util.Random;
  *
  *
  */
-public class NumbersActivity extends FragmentActivity implements View.OnClickListener {
+public class NumbersActivity extends ActionBarActivity implements View.OnClickListener {
 
 	// ウィジェット類の宣言
 	private TextView textViewNumbers;

@@ -6,4 +6,5 @@
     <string name="numbers_3">ナンバーズ3</string>
     <string name="numbers_4">ナンバーズ4</string>
     <string name="winning_number_info">当選番号案内</string>
+    <string name="please_choose">選んでください。</string>
 </resources>

@@ -2,6 +2,8 @@ package net.formula97.android.NumbersCalc;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -141,4 +143,28 @@ public class NumbersActivity extends ActionBarActivity implements View.OnClickLi
         adView.destroy();
 	}
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean ret = false;
+
+        switch(item.getItemId()) {
+            case R.id.action_show_web:
+                // 当選番号案内表示ダイアログ
+                SelectDialog selectDialog = new SelectDialog();
+                selectDialog.show(getSupportFragmentManager(), SelectDialog.FRAGMENT_TAG);
+                ret = true;
+                break;
+            default:
+                ret = super.onOptionsItemSelected(item);
+                break;
+        }
+
+        return ret;
+    }
 }

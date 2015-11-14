@@ -7,4 +7,10 @@
     <string name="numbers_4">ナンバーズ4</string>
     <string name="winning_number_info">当選番号案内</string>
     <string name="please_choose">選んでください。</string>
+    <string name="loto6">ロト６</string>
+    <string name="loto7">ロト7</string>
+    <string name="mini_loto">ミニロト</string>
+    <string name="name_Button_Loto6">ロト6を計算</string>
+    <string name="name_Button_Loto7">ロト7を計算</string>
+    <string name="name_Button_MiniLoto">ミニロトを計算</string>
 </resources>

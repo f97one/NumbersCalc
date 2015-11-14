@@ -38,6 +38,16 @@
         android:textAppearance="?android:textAppearanceLarge"
         android:text="@string/name_ButtonNumbers4"/>
 
+    <Button
+        android:id="@+id/ButtonLoto7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ButtonNumbers4"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:visibility="gone"
+        android:text="@string/name_Button_Loto7" />
+
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"

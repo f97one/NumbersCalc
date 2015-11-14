@@ -2,6 +2,7 @@ package net.formula97.android.NumbersCalc;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,19 +12,34 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 /**
  *
  *
  */
-public class NumbersActivity extends ActionBarActivity implements View.OnClickListener {
+public class NumbersActivity extends AppCompatActivity implements View.OnClickListener {
 
 	// ウィジェット類の宣言
 	private TextView textViewNumbers;
 	private Button buttonNumbers3;
 	private Button buttonNumbers4;
+    private Button buttonLoto7;
 	private AdView adView;
+
+    private final int sNumbers3Sets = 3;
+    private final int sNumbers4Sets = 4;
+    private final int sMiniLotoSets = 5;
+    private final int sLoto6sets = 6;
+    private final int sLoto7sets = 7;
 
     private String calcResult;
 
@@ -39,10 +55,12 @@ public class NumbersActivity extends ActionBarActivity implements View.OnClickLi
         textViewNumbers = (TextView)findViewById(R.id.TextViewNumbers);
         buttonNumbers3 = (Button)findViewById(R.id.ButtonNumbers3);
         buttonNumbers4 = (Button)findViewById(R.id.ButtonNumbers4);
+        buttonLoto7 = (Button)findViewById(R.id.ButtonLoto7);
 
         // それぞれのボタンにコールバックリスナーを定義
         buttonNumbers3.setOnClickListener(this);
         buttonNumbers4.setOnClickListener(this);
+        buttonLoto7.setOnClickListener(this);
 
         // AdMob表示用のウィジェットを取得し、コールバックリスナーを定義
         adView = (AdView)findViewById(R.id.adView);
@@ -74,7 +92,7 @@ public class NumbersActivity extends ActionBarActivity implements View.OnClickLi
     public String calcNumbers(int digits) {
     	String strRet = "";
 
-        Random random = new Random();
+        Random random = new SecureRandom();
 
         if (digits == 3) {
             // 000～999なので、nextIntの引数は1000
@@ -160,11 +178,69 @@ public class NumbersActivity extends ActionBarActivity implements View.OnClickLi
                 selectDialog.show(getSupportFragmentManager(), SelectDialog.FRAGMENT_TAG);
                 ret = true;
                 break;
+            case R.id.action_change_mode:
+                if (buttonLoto7.getVisibility() == View.GONE) {
+                    buttonLoto7.setVisibility(View.VISIBLE);
+
+                } else {
+                    buttonLoto7.setVisibility(View.GONE);
+                }
+                break;
             default:
                 ret = super.onOptionsItemSelected(item);
                 break;
         }
 
         return ret;
+    }
+
+    private String calcLoto(int sets) {
+        int miniLotoMax = 31;
+        int loto6Max = 43;
+        int loto7Max = 37;
+
+        Map<Integer, Integer> map = new HashMap<>(1);
+
+        Random random = new SecureRandom();
+        int d;
+        switch (sets) {
+            case sMiniLotoSets:
+                d = miniLotoMax;
+                break;
+            case sLoto6sets:
+                d = loto6Max;
+                break;
+            case sLoto7sets:
+                d = loto7Max;
+                break;
+            default:
+                d = 4;
+                break;
+        }
+
+        int r = random.nextInt(d) + 1;
+        map.put(r, 1);
+
+        for (int i = 0; i < sets; i++) {
+            do {
+                r = random.nextInt(d) + 1;
+            } while (map.containsKey(r));
+
+            map.put(r, 1);
+        }
+
+        Set<Integer> set = map.keySet();
+        List<Integer> l = new ArrayList<>(1);
+        for (Integer i : set) {
+            l.add(i);
+        }
+        Collections.sort(l);
+
+        StringBuilder builder = new StringBuilder();
+        for(Integer i : l) {
+            builder.append(i).append(" ");
+        }
+
+        return builder.toString();
     }
 }

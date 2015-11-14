@@ -6,4 +6,8 @@
         android:title="@string/winning_number_info"
         android:icon="@drawable/ic_action_show_info"
         app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_change_mode"
+        android:title="@string/change_mode"
+        />
 </menu>

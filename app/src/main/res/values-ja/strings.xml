@@ -13,4 +13,5 @@
     <string name="name_Button_Loto6">ロト6を計算</string>
     <string name="name_Button_Loto7">ロト7を計算</string>
     <string name="name_Button_MiniLoto">ミニロトを計算</string>
+    <string name="change_mode">モード変更</string>
 </resources>

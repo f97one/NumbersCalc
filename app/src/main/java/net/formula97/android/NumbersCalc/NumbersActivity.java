@@ -3,6 +3,7 @@ package net.formula97.android.NumbersCalc;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +43,7 @@ public class NumbersActivity extends AppCompatActivity implements View.OnClickLi
     private final int sLoto7sets = 7;
 
     private String calcResult;
+    private boolean mIsNumbersMode;
 
     /** Called when the activity is first created.
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -68,6 +70,7 @@ public class NumbersActivity extends AppCompatActivity implements View.OnClickLi
         adView.loadAd(adRequest);
 
         calcResult = "";
+        mIsNumbersMode = true;
     }
 
     @Override
@@ -75,6 +78,7 @@ public class NumbersActivity extends AppCompatActivity implements View.OnClickLi
         super.onRestoreInstanceState(savedInstanceState);
 
         calcResult = savedInstanceState.getString("CalcResult");
+        mIsNumbersMode = savedInstanceState.getBoolean("IsNumbersMode");
     }
 
     @Override
@@ -82,6 +86,7 @@ public class NumbersActivity extends AppCompatActivity implements View.OnClickLi
         super.onSaveInstanceState(outState);
 
         outState.putString("CalcResult", calcResult);
+        outState.putBoolean("IsNumbersMode", mIsNumbersMode);
     }
 
     /**
@@ -115,14 +120,16 @@ public class NumbersActivity extends AppCompatActivity implements View.OnClickLi
 
 		// 押したボタンに応じて、画面に置く文字を変える
 		switch (v.getId()) {
-		case R.id.ButtonNumbers3:	// ３ケタボタン
-            calcResult = calcNumbers(3);
-			break;
-		case R.id.ButtonNumbers4:	// ４ケタボタン
-            calcResult = calcNumbers(4);
-			break;
-		default:
-			break;
+            case R.id.ButtonNumbers3:	// ３ケタボタン
+                calcResult = mIsNumbersMode ? calcNumbers(3) : calcLoto(5);
+                break;
+            case R.id.ButtonNumbers4:	// ４ケタボタン
+                calcResult = mIsNumbersMode ? calcNumbers(4) : calcLoto(6);
+                break;
+            case R.id.ButtonLoto7:
+                calcResult = calcLoto(7);
+            default:
+                break;
 		}
 
         textViewNumbers.setText(calcResult);
@@ -179,12 +186,28 @@ public class NumbersActivity extends AppCompatActivity implements View.OnClickLi
                 ret = true;
                 break;
             case R.id.action_change_mode:
-                if (buttonLoto7.getVisibility() == View.GONE) {
+                if (mIsNumbersMode) {
+                    // Lotoモードへ変更
+                    mIsNumbersMode = false;
                     buttonLoto7.setVisibility(View.VISIBLE);
+                    buttonNumbers3.setText(R.string.name_Button_MiniLoto);
+                    buttonNumbers4.setText(R.string.name_Button_Loto6);
 
+                    calcResult = "";
+                    textViewNumbers.setText("");
+                    textViewNumbers.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32);
                 } else {
+                    // Numbersモードへ変更
+                    mIsNumbersMode = true;
                     buttonLoto7.setVisibility(View.GONE);
+                    buttonNumbers3.setText(R.string.name_ButtonNumbers3);
+                    buttonNumbers4.setText(R.string.name_ButtonNumbers4);
+
+                    calcResult = "";
+                    textViewNumbers.setText("");
+                    textViewNumbers.setTextSize(TypedValue.COMPLEX_UNIT_SP, 96);
                 }
+
                 break;
             default:
                 ret = super.onOptionsItemSelected(item);
@@ -221,7 +244,8 @@ public class NumbersActivity extends AppCompatActivity implements View.OnClickLi
         int r = random.nextInt(d) + 1;
         map.put(r, 1);
 
-        for (int i = 0; i < sets; i++) {
+        // 初回にすでにputされているので、ループカウンタの初期値は1
+        for (int i = 1; i < sets; i++) {
             do {
                 r = random.nextInt(d) + 1;
             } while (map.containsKey(r));
@@ -237,8 +261,11 @@ public class NumbersActivity extends AppCompatActivity implements View.OnClickLi
         Collections.sort(l);
 
         StringBuilder builder = new StringBuilder();
-        for(Integer i : l) {
-            builder.append(i).append(" ");
+        for (int z = 0; z < l.size(); z++) {
+            builder.append(String.format("%02d", l.get(z)));
+            if (z != l.size() -1) {
+                builder.append(", ");
+            }
         }
 
         return builder.toString();
